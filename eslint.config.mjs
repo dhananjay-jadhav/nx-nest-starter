@@ -1,4 +1,5 @@
 import nx from '@nx/eslint-plugin';
+import tseslint from 'typescript-eslint';
 
 export default [
   ...nx.configs['flat/base'],
@@ -38,5 +39,22 @@ export default [
     ],
     // Override or add rules here
     rules: {},
+  },
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+      },
+    },
+    // Override or add rules here
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+    },
   },
 ];

@@ -5,7 +5,10 @@
     "private": true,
     "scripts": {
         "build:api": "nx build api",
-        "start:api": "nx serve api"
+        "start:api": "nx serve api",
+        "all:lint": "nx run-many --target=lint --all --parallel",
+        "all:test": "nx run-many --target=test --all --parallel",
+        "format": "nx format:write"
     },
     "dependencies": {
         "@nestjs/common": "^11.0.0",

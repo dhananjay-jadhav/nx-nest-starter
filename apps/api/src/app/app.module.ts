@@ -19,7 +19,7 @@ import { LoggerModule } from 'nestjs-pino';
                     quietResLogger: true,
                     timestamp: (): string => ` "Timestamp" : "${new Date().toISOString()}" `,
                     formatters: {
-                        level: label => {
+                        level: (label: string): { level: string } => {
                             return { level: label };
                         },
                     },
