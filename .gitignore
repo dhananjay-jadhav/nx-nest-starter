@@ -43,6 +43,7 @@ Thumbs.db
 
 .env
 
+error.log
 
 # .yarn/*
 .yarn/install-state.gz

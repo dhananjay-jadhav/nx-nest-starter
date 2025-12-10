@@ -6,16 +6,27 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
+import { Logger as PinoLogger } from 'nestjs-pino';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+    const app = await NestFactory.create(AppModule, { bufferLogs: true });
+
+    const logger = app.get(PinoLogger);
+
+    const config = app.get(ConfigService);
+
+    app.useLogger(logger);
+
+    const port = parseInt(config.getOrThrow('API_PORT', '3000'));
+    await app.listen(port);
+    Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 
-bootstrap();
+bootstrap()
+    .catch(err => {
+        Logger.error(`Error at the root level of the application.....`, err);
+    })
+    .finally(() => {
+        Logger.log('Application started successfully......🚀 🚀 ');
+    });
