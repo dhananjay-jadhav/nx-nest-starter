@@ -25,9 +25,9 @@ async function bootstrap(): Promise<void> {
 }
 
 bootstrap()
+    .then(() => {
+        Logger.log('Application started successfully......🚀 🚀 ');
+    })
     .catch(err => {
         Logger.error(`Error at the root level of the application.....`, err);
-    })
-    .finally(() => {
-        Logger.log('Application started successfully......🚀 🚀 ');
     });
